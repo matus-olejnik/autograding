@@ -35,5 +35,5 @@ jobs:
           body: ${{ format('\{"studentId":"{0}","output":"{1}"}', 74144, steps.maven-build-step.outputs) }}
 
 
-  '{ "studentId": "74144",  "output": "tefna jfjnwaofj woaifjwaiofj woaijf owai" }'
+ # '{ "studentId": "74144",  "output": "tefna jfjnwaofj woaifjwaiofj woaijf owai" }'
 #        '{ "studentId": "74144",  "job": "devops" }'
