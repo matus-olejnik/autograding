@@ -32,7 +32,7 @@ jobs:
           method: 'POST'
           accept: 200,201,204
           headers: '{ "Content-Type" : "application/json" }'
-          body: ${{ format('{"studentId":"{0}","output":"{1}"}', 74144, steps.maven-build-step.outputs) }}
+          body: ${{ format('{{\"studentId\":\"{0}\","output\":\"{1}\"}}', '74144', steps.maven-build-step.outputs) }}
 
 
  # '{ "studentId": "74144",  "output": "tefna jfjnwaofj woaifjwaiofj woaijf owai" }'
