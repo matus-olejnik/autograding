@@ -22,7 +22,7 @@ jobs:
           cache: maven
 
       - name: Build with Maven
-        id: maven-build-id
+        id: maven-build-step
         run: mvn -B package --file pom.xml
 
       - name: cURL AxiosJS
@@ -32,8 +32,8 @@ jobs:
           method: 'POST'
           accept: 200,201,204
           headers: '{ "Content-Type" : "application/json" }'
-          body: '{ "studentId": "74144",  "output": "tefna jfjnwaofj woaifjwaiofj woaijf owai" }'
+          body: ${{ format('\{"studentId":"{0}","output":"{1}"}', 74144, steps.maven-build-step.outputs) }}
 
-#        ${{ format('\{{0}/{1}.{2}', secrets.FOLDER, secrets.FILENAME, secrets.EXT) }}
 
+  '{ "studentId": "74144",  "output": "tefna jfjnwaofj woaifjwaiofj woaijf owai" }'
 #        '{ "studentId": "74144",  "job": "devops" }'
