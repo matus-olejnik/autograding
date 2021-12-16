@@ -23,17 +23,17 @@ jobs:
 
       - name: Build with Maven
         id: maven-build-step
-        run: mvn -B package --file pom.xml
+        run: echo "::set-output name=mvn-buil-output::$(mvn -B package --file pom.xml)\n"
 
       - name: Test print
         env:
-          JSON_VAR: ${{ format('{{\"studentId\":\"{0}\","output\":\"{1}\"}}', '74144', steps.maven-build-step.outputs) }}
-        run: echo ${{ env.JSON_VAR }}
-          
+          JSON_VAR: ${{ format('{{"studentId":"{0}","output":"{1}"}}', '74144', steps.maven-build-step.outputs) }}
+        run: echo "$env.JSON_VAR"
+
       - name: cURL AxiosJS
         uses: indiesdev/curl@v1
         env:
-          JSON_VAR: ${{ format('{{\"studentId\":\"{0}\","output\":\"{1}\"}}', '74144', steps.maven-build-step.outputs) }}
+          JSON_VAR: ${{ format('{{"studentId":"{0}","output":"{1}"}}', '74144', steps.maven-build-step.outputs) }}
         with:
           url: https://autograding-be.herokuapp.com/build-outputs
           method: 'POST'
