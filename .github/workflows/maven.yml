@@ -41,10 +41,7 @@ jobs:
 #          echo $value
       
       - name: Set log output variable
-#        uses: actions/download-artifact@v2
-#        with:
-#          name: build-output
-      - shell: bash
+        shell: bash
         run: |
           logOutputVar=`cat build-output.txt`
 
