@@ -25,31 +25,39 @@ jobs:
         id: maven-build-step
         run: mvn -B package --file pom.xml --log-file build-output.txt
         
-      - name: Upload log file
-        uses: actions/upload-artifact@v2
-        with:
-          name: build-output
-          path: build-output.txt
+#      - name: Upload log file
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: build-output
+#          path: build-output.txt
 
-      - name: Test print
-        uses: actions/download-artifact@v2
-        with:
-          name: build-output
+#      - name: Test print
+#        uses: actions/download-artifact@v2
+#        with:
+#          name: build-output
+#      - shell: bash
+#        run: |
+#          value=`cat build-output.txt`
+#          echo $value
+      
+      - name: Set log output variable
+#        uses: actions/download-artifact@v2
+#        with:
+#          name: build-output
       - shell: bash
         run: |
-          value=`cat build-output.txt`
-          echo $value
+          logOutputVar=`cat build-output.txt`
 
-#      - name: cURL AxiosJS
-#        uses: indiesdev/curl@v1
-#        env:
-#          JSON_VAR: ${{ format('{{"studentId":"{0}","output":"{1}"}}', '74144', join(steps.maven-build-step.outputs.*, '\n')) }}
-#        with:
-#          url: https://autograding-be.herokuapp.com/build-outputs
-#          method: 'POST'
-#          accept: 200,201,204
-#          headers: '{ "Content-Type" : "application/json" }'
-#          body: ${{ env.JSON_VAR }}
+      - name: Send output to server
+        uses: indiesdev/curl@v1
+        env:
+          JSON_VAR: ${{ format('{{"studentId":"{0}","output":"{1}"}}', '74144', logOutputVar) }}
+        with:
+          url: https://autograding-be.herokuapp.com/build-outputs
+          method: 'POST'
+          accept: 200,201,204
+          headers: '{ "Content-Type" : "application/json" }'
+          body: ${{ env.JSON_VAR }}
 
  # '{ "studentId": "74144",  "output": "tefna jfjnwaofj woaifjwaiofj woaijf owai" }'
 #        '{ "studentId": "74144",  "job": "devops" }'
