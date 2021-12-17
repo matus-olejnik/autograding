@@ -39,22 +39,23 @@ jobs:
 #        run: |
 #          value=`cat build-output.txt`
 #          echo $value
-      
-      - name: Set log output variable
+
+#      - name: Send output to server
+#        uses: indiesdev/curl@v1
+#        env:
+#          JSON_VAR: ${{ format('{{"studentId":"{0}","output":"{1}"}}', '74144', logOutputVar) }}
+#        with:
+#          url: https://autograding-be.herokuapp.com/build-outputs
+#          method: 'POST'
+#          accept: 200,201,204
+#          headers: '{ "Content-Type" : "application/json" }'
+#          body: ${{ env.JSON_VAR }}
+      - name: Send output to server
         shell: bash
         run: |
           logOutputVar=`cat build-output.txt`
-
-      - name: Send output to server
-        uses: indiesdev/curl@v1
-        env:
-          JSON_VAR: ${{ format('{{"studentId":"{0}","output":"{1}"}}', '74144', logOutputVar) }}
-        with:
-          url: https://autograding-be.herokuapp.com/build-outputs
-          method: 'POST'
-          accept: 200,201,204
-          headers: '{ "Content-Type" : "application/json" }'
-          body: ${{ env.JSON_VAR }}
+          requestBody=$(printf "{\"studentId\":\"%s\", \"output\":\"%s\"}" "74144" $logOutputVar)
+          curl --header "Content-Type: application/json" --request POST --data '"$logOutputVar"' https://autograding-be.herokuapp.com/build-outputs
 
  # '{ "studentId": "74144",  "output": "tefna jfjnwaofj woaifjwaiofj woaijf owai" }'
 #        '{ "studentId": "74144",  "job": "devops" }'
