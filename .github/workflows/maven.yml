@@ -53,9 +53,8 @@ jobs:
       - name: Send output to server
         shell: bash
         run: |
-          logOutputVar=`cat build-output.txt`
-          requestBody=$(printf "{\"studentId\":\"%s\", \"output\":\"%s\"}" "74144" $logOutputVar)
-          curl --header "Content-Type: application/json" --request POST --data "$logOutputVar" https://autograding-be.herokuapp.com/build-outputs
+          curl -i -X POST -H "Content-Type: multipart/form-data" -F "output-file=@build-output.txt" https://autograding-be.herokuapp.com/74144/build-outputs
 
+# requestBody=$(printf "{\"studentId\":\"%s\", \"output\":\"%s\"}" "74144" $logOutputVar)
  # '{ "studentId": "74144",  "output": "tefna jfjnwaofj woaifjwaiofj woaijf owai" }'
 #        '{ "studentId": "74144",  "job": "devops" }'
