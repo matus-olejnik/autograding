@@ -4,19 +4,34 @@ public class BaseTest {
 
     @Test
     public void testFirst2b() {
-
-        System.out.println("TEST 1 (2b) - CORRECT");
+        TestResult tr = new TestResult(
+                "74144",
+                "Test 1",
+                2,
+                TestResultTypeEnu.CORRECT
+        );
+        System.out.println(tr);
     }
 
     @Test
     public void testSecond3b() {
-
-        System.out.println("TEST 2 (3b) - FAIL");
+        TestResult tr = new TestResult(
+                "74144",
+                "Test 2",
+                3,
+                TestResultTypeEnu.FAIL
+        );
+        System.out.println(tr);
     }
 
     @Test
     public void testThird1b() {
-
-        System.out.println("TEST 3 (1b) - CORRECT");
+        TestResult tr = new TestResult(
+                "74144",
+                "Test 3",
+                1,
+                TestResultTypeEnu.CORRECT
+        );
+        System.out.println(tr);
     }
 }
