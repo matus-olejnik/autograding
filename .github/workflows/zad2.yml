@@ -13,13 +13,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Deploy Stage
-        uses: fjogeleit/http-request-action@v1
+      - name: Send request
+        uses: satak/webrequest-action@master
         with:
-          url: 'https://autograding-be.herokuapp.com/solution'
-          method: 'POST'
-          studentId: ${{ secrets.AIS_ID }}
-          repositoryUrl: ${{ github.repositoryUrl }}
-          branchName: ${{ github.head_ref }}
-          pullRequestId: ${{ github.ref }}
-          language: 'java'
+          url: https://autograding-be.herokuapp.com/solution
+          method: POST
+          payload: '{"studentId": "${{ secrets.AIS_ID }}", "repositoryUrl": "${{ github.repositoryUrl }}", "branchName": "${{ github.head_ref }}", "pullRequestId": "${{ github.ref }}", "language": "java"}'
