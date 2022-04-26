@@ -1,0 +1,25 @@
+name: CI for sending solution request
+
+on:
+  pull_request:
+    types:
+      - opened
+    branches: [ zad2/** ]
+  
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Deploy Stage
+        uses: fjogeleit/http-request-action@v1
+        with:
+          url: 'https://autograding-be.herokuapp.com/solution'
+          method: 'POST'
+          studentId: ${{ secrets.AIS_ID }}
+          repositoryUrl: ${{ github.repositoryUrl }}
+          branchName: ${{ github.head_ref }}
+          pullRequestId: ${{ github.ref }}
+          language: 'java'
