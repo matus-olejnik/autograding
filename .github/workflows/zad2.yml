@@ -18,4 +18,12 @@ jobs:
         with:
           url: https://autograding-be.herokuapp.com/solution
           method: POST
-          payload: '{"studentId": "${{ secrets.AIS_ID }}", "repositoryUrl": "${{ github.repositoryUrl }}", "branchName": "${{ github.head_ref }}", "pullRequestId": "${{ github.ref }}", "language": "java"}'
+          payload: |
+            '{\
+            "studentId": "${{ secrets.AIS_ID }}", \
+            "gitUserName": "${{ github.actor }}", \
+            "repositoryUrl": "${{ github.repositoryUrl }}", \
+            "branchName": "${{ github.head_ref }}", \
+            "pullRequestId": "${{ github.ref }}", \
+            "language": "java"\
+            }'
