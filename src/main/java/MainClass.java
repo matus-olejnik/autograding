@@ -4,5 +4,6 @@ public class MainClass {
 //        TODO implementation
         System.out.println("Test");
         System.out.println("Test");
+        System.out.println("Test");
     }
 }
