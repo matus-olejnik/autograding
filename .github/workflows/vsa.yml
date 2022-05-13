@@ -16,7 +16,7 @@ jobs:
       - name: Send request
         uses: satak/webrequest-action@master
         with:
-          url: https://147.175.121.244:9000/solution
+          url: http://147.175.121.244:9000/solution
           method: POST
           payload: >
             {
