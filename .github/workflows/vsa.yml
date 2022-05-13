@@ -1,0 +1,33 @@
+name: CI for sending solution request
+
+on:
+  pull_request:
+    types:
+      - opened
+    branches: [ main ]
+
+jobs:
+  build:
+    if: startsWith(github.head_ref, 'vsa/java')
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Send request
+        uses: satak/webrequest-action@master
+        with:
+          url: http://147.175.121.244:9000/solution
+          method: POST
+          payload: >
+            {
+            "studentId": "${{ secrets.AIS_ID }}",
+            "studentEmail": "${{ secrets.AIS_EMAIL }}",
+            "gitUserName": "${{ github.actor }}",
+            "repositoryUrl": "${{ github.repositoryUrl }}",
+            "branchName": "${{ github.head_ref }}",
+            "pullRequestId": "${{ github.ref }}",
+            "uploadToExternalSystem": "false",
+            "deadline": "2023-01-01 23:59",
+            "staticSolution": "false",
+            "language": "java"
+            }
