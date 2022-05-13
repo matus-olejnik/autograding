@@ -17,6 +17,7 @@ public class Dbapp {
         if (fl == null) {
             return 0;
         }
+
         return fl.size();
     }
 
